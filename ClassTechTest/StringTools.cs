@@ -6,6 +6,11 @@ namespace ClassTechTest
     {
         #region String Tool Problems
 
+        /// <summary>
+        /// Find the first duplicated character in the input.
+        /// </summary>
+        /// <param name="input">Input string.</param>
+        /// <returns>The first duplicated character.</returns>
         public string FindFirstDuplicatedCharacter(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -35,6 +40,11 @@ namespace ClassTechTest
 
         #region Palindrome Problems
 
+        /// <summary>
+        /// Check whether the input is a palindrome.
+        /// </summary>
+        /// <param name="input">Input string.</param>
+        /// <returns>Return true if the input is a palindrome; otherwise, return false.</returns>
         public bool IsPalindrome(string input)
         {
             if (string.IsNullOrWhiteSpace(input))
@@ -49,6 +59,7 @@ namespace ClassTechTest
             int leftIdx;
             int rightIdx;
 
+            // Get the index values of the characters to the left and right of the middle of the string.
             if (input.Length % 2 != 0)
             {
                 leftIdx = (input.Length / 2) - 1;
@@ -73,9 +84,51 @@ namespace ClassTechTest
             return true;
         }
 
+        /// <summary>
+        /// Find the longest palindrome in the input.
+        /// </summary>
+        /// <param name="input">Input string.</param>
+        /// <returns>The longest palindrome.</returns>
         public string FindLargestPalindrome(string input)
         {
-            return null;
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return null;
+            }
+            if (input.Length == 1)
+            {
+                return input;
+            }
+
+            var longestStr = "";
+            var strCollection = new HashSet<string>();
+
+            // Get all possible text segments from the given input string.
+            for (int i = 0; i < input.Length; i++)
+            {
+                for (int y = i; y < input.Length; y++)
+                {
+                    strCollection.Add(input.Substring(i, y - i + 1));
+                }
+            }
+
+            foreach (string str in strCollection)
+            {
+                var isPalindrome = IsPalindrome(str);
+                if (isPalindrome && str.Length > longestStr.Length)
+                {
+                    longestStr = str;
+                }
+            }
+
+            if (string.IsNullOrEmpty(longestStr) || longestStr.Length <= 1)
+            {
+                return null;
+            }
+            else
+            {
+                return longestStr;
+            }
         }
 
         #endregion
