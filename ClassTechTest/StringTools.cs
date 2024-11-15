@@ -37,9 +37,42 @@ namespace ClassTechTest
 
         public bool IsPalindrome(string input)
         {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
+            if (input.Length == 1)
+            {
+                return true;
+            }
+
+            int leftIdx;
+            int rightIdx;
+
+            if (input.Length % 2 != 0)
+            {
+                leftIdx = (input.Length / 2) - 1;
+                rightIdx = (input.Length / 2) + 1;
+            }
+            else
+            {
+                leftIdx = (input.Length / 2) - 1;
+                rightIdx = input.Length / 2;
+            }
+
+            while (leftIdx >= 0)
+            {
+                if (char.ToLower(input[leftIdx]) != char.ToLower(input[rightIdx]))
+                {
+                    return false;
+                }
+                leftIdx--;
+                rightIdx++;
+            }
+
             return true;
         }
-        
+
         public string FindLargestPalindrome(string input)
         {
             return null;
